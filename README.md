@@ -24,8 +24,8 @@ Compiler Lab inte Kurchu Programs 😃
 └── SampleLexPrograms/
     ├── evenOrOdd/
     │   └── evenOrOdd.l # Lex program to check even/odd numbers
-    ├── FlameGame/
-    │   └── FlameGame.l # Lex program for FLAMES game
+    ├── FlamesGame/
+    │   └── FlamesGame.l # Lex program for FLAMES game
     ├── InGeneral/
     │   └── InGeneral.l # Template Lex program for custom functions
     ├── Palindrome/
