@@ -1,4 +1,4 @@
-# Compiler Examples Project
+# Compiler Lab Programs
 
 Compiler Lab inte Kurchu Programs 😃
 
