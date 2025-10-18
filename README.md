@@ -1,6 +1,7 @@
 # Compiler Lab Programs
 
 Compiler Lab inte Kurchu Programs 😃
+ 
 
 ## Project Structure
 
@@ -36,6 +37,7 @@ Compiler Lab inte Kurchu Programs 😃
 ## Notes
 
 -Oru karyam ondu maximum ee programs run cheythu nokkane Errors okke eppozha vandiyum vilichu varunnathu ennu parayan pattathilla
+-Ee programs run cheyyumbol enthenkilum Sambhavichal athinte utharavathi ithu cheytha njan alla ennu ariyichu kollunnu
 
 ## How to run
 ### Program having both LEX and YACC programs
