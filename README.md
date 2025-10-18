@@ -53,8 +53,8 @@ gcc lex.yy.c
 ./a.out
 ```
 ### Program with only C Code
-    - Prathyekichu parayandallo 😎
-    Enganum Maranittundengile ithaane
+- Prathyekichu parayandallo 😎
+Enganum Maranittundengile ithaane
     ```
     gcc fileName.c
     ./a.out
