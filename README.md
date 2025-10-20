@@ -57,10 +57,10 @@ gcc lex.yy.c
 ### Program with only C Code
 Prathyekichu parayandallo 😎
 Engaanum Maranittundengil ithaane
-    ```
-    gcc fileName.c
-    ./a.out
-    ```
+```
+gcc fileName.c
+./a.out
+```
 ## Contributing
 
 Feel free to add more examples or improve existing implementations.
