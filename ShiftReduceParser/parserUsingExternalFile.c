@@ -45,7 +45,6 @@ int main()
             check();
         }
     }
-    printf("\nParsing completed.\n");
     return 0;
 }
 
