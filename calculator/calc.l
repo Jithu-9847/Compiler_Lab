@@ -1,6 +1,7 @@
 %{
 #include "calc.tab.h" //oru karyam shredhikkanam yacc inte program run cheyyumbol oru pakshe generate aakunnathu 'y.tab.h' allengil 'filename.tab.h' aayirikkum.so aa file inte name venam ee #include inte kodukkendathu, karanam vere onnum kondu alle bison inte version anusarichu ouput file maarum sookshichonam 
 #include <stdio.h>
+extern int yylval;
 %}
 
 %%
