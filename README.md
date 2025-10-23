@@ -1,7 +1,7 @@
 # Compiler Lab Programs
 
 Compiler Lab inte Kurchu Programs 😃
- 
+Code isttappettaal Star and Follow 😁😅
 
 ## Project Structure
 
