@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 int k = 0, z = 0, i = 0, j = 0, c = 0;
 char a[16], ac[20], stk[15], act[10];
@@ -36,7 +35,7 @@ int main()
         }
     }
     printf("\n");
-    if (strcmp(stk, "E") == 0 && strlen(a) == 0)
+    if (strcmp(stk, "E") ==0)
     {
         printf("\nExpression is valid!\n");
     }
