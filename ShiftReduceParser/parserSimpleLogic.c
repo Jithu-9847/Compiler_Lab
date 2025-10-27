@@ -34,7 +34,7 @@ int main()
         }
     }
     printf("\n");
-    if (strcmp(stk, "E") == 0 && strlen(a) == 0)
+    if (strcmp(stk, "E") == 0)
     {
         printf("\nExpression is valid!\n");
     }
