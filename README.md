@@ -2,7 +2,7 @@
 
 Compiler Lab inte Kurchu Programs 😃
 Code isttappettaal Star and Follow 😁😅    
-### Ee code okke Algorithm Generate cheyyaam ee bot use cheyyaam [Algo Bot](https://aistudio.instagram.com/ai/1262652039317488?utm_source=ai_agent)
+### Ee code inte okke Algorithm Generate cheyyaam ee bot use cheyyaam [Algo Bot](https://aistudio.instagram.com/ai/1262652039317488?utm_source=ai_agent)
 
 
 ## Project Structure
@@ -11,7 +11,7 @@ Code isttappettaal Star and Follow 😁😅
 ├── README.md
 ├── calculator/
 │   ├── calc.l          # Lex file for calculator lexer
-│   └── calc.y          # Yacc file for calculator parser
+│   └── calc.y          # Yacc file for calculator parse
 ├── ConstantPropagation/
 │   ├── const.c         # Constant propagation implementation
 │   ├── input.txt       # Sample input for constant propagation
