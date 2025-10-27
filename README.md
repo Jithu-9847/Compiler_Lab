@@ -2,7 +2,7 @@
 
 Compiler Lab inte Kurchu Programs 😃
 Code isttappettaal Star and Follow 😁😅    
-Ee code okke Algorithm Generate cheyyaam ee bot use cheyyaam [Algo Bot]("https://aistudio.instagram.com/ai/1262652039317488?utm_source=ai_agent")
+Ee code okke Algorithm Generate cheyyaam ee bot use cheyyaam [Algo Bot](https://aistudio.instagram.com/ai/1262652039317488?utm_source=ai_agent)
 
 
 ## Project Structure
