@@ -69,16 +69,17 @@ void constant() {
 
 void output()
 {
-    printf("\nFinal optimized expressions:\n");
+    int allFolded = 1;
     for (int i = 0; i < n; i++) {
-        if (arr[i].flag) {
-            // Expression was folded — show final constant value
-            printf("= %s %s\n", arr[i].arg1, arr[i].res);
-        } else {
-            // Expression still needs computation
+        if (!arr[i].flag) {
+            allFolded = 0;
             printf("%s %s %s %s\n", arr[i].op, arr[i].arg1, arr[i].arg2, arr[i].res);
         }
-    }
+    
+    if (allFolded)
+        printf("All expressions were constant folded.\n");
+	printf("final result %s=%d\n",arr[n-1].res,res);
+	}
 }
 
 
