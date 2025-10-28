@@ -1,92 +1,112 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include<ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-struct expr{
-    char op[5],arg1[5],arg2[5],res[5];
+struct expr {
+    char op[5], arg1[10], arg2[10], res[10];
     int flag;
-}arr[10];
+} arr[20];
+
 int n;
+int value[26];
+int isConst[26];
 
-void change(int p,char *res)
-{
-    for(int i=p+1;i<n; i++)
-    {
-        if(strcmp(arr[p].res,arr[i].arg1)==0)
-            strcpy(arr[i].arg1,res);
-        else if(strcmp(arr[p].res,arr[i].arg2)==0)
-            strcpy(arr[i].arg2,res);
+int getVarIndex(char c) {
+    return c - 'a';
+}
+
+int isNumber(char *s) {
+    return isdigit(s[0]);
+}
+
+void propagate(int p, char *newVal) {
+    for (int i = p + 1; i < n; i++) {
+        if (strcmp(arr[p].res, arr[i].arg1) == 0)
+            strcpy(arr[i].arg1, newVal);
+        if (strcmp(arr[p].res, arr[i].arg2) == 0)
+            strcpy(arr[i].arg2, newVal);
     }
 }
 
-void input()
-{
-    printf("Enter the no of terms: ");
-    scanf("%d",&n);
-    printf("Enter the terms as Quatraples:\nop arg1 arg2 res\n");
-    for(int i=0;i<n;i++)
-    {
-        scanf("%s",arr[i].op);
-        scanf("%s",arr[i].arg1);
-        scanf("%s",arr[i].arg2);
-        scanf("%s",arr[i].res);
-        arr[i].flag=0;
-    }
-}
+void input() {
+    printf("Enter number of statements: ");
+    scanf("%d", &n);
 
-void constant() {
-    int a, b, res;
-    char temp_res[5];
-
-    for (int i = 0; i < n; i++) 
-    {
-        if (arr[i].op[0] == '=') 
-        {
-            strcpy(temp_res, arr[i].arg1);
-            arr[i].flag = 1;
-            change(i, temp_res);
-        }
-        else if (isdigit(arr[i].arg1[0]) && isdigit(arr[i].arg2[0])) 
-        {
-            a = atoi(arr[i].arg1);
-            b = atoi(arr[i].arg2);
-            switch (arr[i].op[0]) 
-            {
-                case '+': res = a + b; break;
-                case '-': res = a - b; break;
-                case '*': res = a * b; break;
-                case '/': res = a / b; break;
-                default: continue;
-            }
-            sprintf(temp_res, "%d", res);
-            arr[i].flag = 1;
-            change(i, temp_res);
-        }
-    }
-}
-
-
-void output()
-{
-    int allFolded = 1;
+    printf("Enter statements (op arg1 arg2 res):\n");
     for (int i = 0; i < n; i++) {
-        if (!arr[i].flag) {
-            allFolded = 0;
-            printf("%s %s %s %s\n", arr[i].op, arr[i].arg1, arr[i].arg2, arr[i].res);
-        }
-    
-    if (allFolded)
-        printf("All expressions were constant folded.\n");
-	printf("final result %s=%d\n",arr[n-1].res,res);
-	}
+        scanf("%s %s %s %s",
+              arr[i].op, arr[i].arg1, arr[i].arg2, arr[i].res);
+        arr[i].flag = 0;
+    }
+    memset(isConst, 0, sizeof(isConst));
 }
 
+void constantProp() {
+    for (int i = 0; i < n; i++) {
+        char *op = arr[i].op;
+        char *a1 = arr[i].arg1;
+        char *a2 = arr[i].arg2;
+        char *r  = arr[i].res;
 
-int main()
-{
+        // Assignment
+        if (op[0] == '=') {
+            if (isNumber(a1)) {
+                int idx = getVarIndex(r[0]);
+                value[idx] = atoi(a1);
+                isConst[idx] = 1;
+            }
+            propagate(i, a1);
+            arr[i].flag = 1;
+        }
+
+        // Constant folding if both numbers
+        else if (isNumber(a1) && isNumber(a2)) {
+            int a = atoi(a1);
+            int b = atoi(a2);
+            int idx = getVarIndex(r[0]);
+
+            switch (op[0]) {
+                case '+': value[idx] = a + b; break;
+                case '-': value[idx] = a - b; break;
+                case '*': value[idx] = a * b; break;
+                case '/': value[idx] = (b != 0) ? a / b : 0; break;
+            }
+
+            isConst[idx] = 1;
+            char temp[10];
+            sprintf(temp, "%d", value[idx]);
+            propagate(i, temp);
+
+            arr[i].flag = 1;
+        }
+    }
+}
+
+void outputFinal() {
+    printf("\nFinal Output (After Constant Propagation):\n");
+
+    for (int i = 0; i < n; i++) {
+        int idx = getVarIndex(arr[i].res[0]);
+
+        if (arr[i].op[0] == '=') {
+            if (isConst[idx])
+                printf("%s = %d\n", arr[i].res, value[idx]);
+            else
+                printf("%s = %s\n", arr[i].res, arr[i].arg1);
+        } else {
+            if (isConst[idx])
+                printf("%s = %d\n", arr[i].res, value[idx]);
+            else
+                printf("%s = %s %c %s\n",
+                       arr[i].res, arr[i].arg1, arr[i].op[0], arr[i].arg2);
+        }
+    }
+}
+
+int main() {
     input();
-    constant();
-    output();
+    constantProp();
+    outputFinal();
     return 0;
 }
