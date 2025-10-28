@@ -24,7 +24,7 @@ void input()
 {
     printf("Enter the no of terms: ");
     scanf("%d",&n);
-    printf("Enter the terms:\n");
+    printf("Enter the terms as Quatraples:\nop arg1 arg2 res\n");
     for(int i=0;i<n;i++)
     {
         scanf("%s",arr[i].op);
@@ -69,17 +69,18 @@ void constant() {
 
 void output()
 {
-    int allFolded = 1;
+    printf("\nFinal optimized expressions:\n");
     for (int i = 0; i < n; i++) {
-        if (!arr[i].flag) {
-            allFolded = 0;
+        if (arr[i].flag) {
+            // Expression was folded — show final constant value
+            printf("= %s %s\n", arr[i].arg1, arr[i].res);
+        } else {
+            // Expression still needs computation
             printf("%s %s %s %s\n", arr[i].op, arr[i].arg1, arr[i].arg2, arr[i].res);
         }
     }
-    if (allFolded)
-        printf("All expressions were constant folded.\n");
-
 }
+
 
 int main()
 {
