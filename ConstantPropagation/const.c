@@ -1,63 +1,90 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<ctype.h>
 
-// small letters mathrame work aakatholle capital letters work aakilla
+struct expr{
+    char op[5],arg1[5],arg2[5],res[5];
+    int flag;
+}arr[10];
+int n;
 
-int main() {
-    FILE *fp = fopen("input.txt", "r");
-    if (!fp) {
-        printf("Cannot open input.txt\n");
-        return 1;
+void change(int p,char *res)
+{
+    for(int i=p+1;i<n; i++)
+    {
+        if(strcmp(arr[p].res,arr[i].arg1)==0)
+            strcpy(arr[i].arg1,res);
+        else if(strcmp(arr[p].res,arr[i].arg2)==0)
+            strcpy(arr[i].arg2,res);
     }
+}
 
-    int n;
-    fscanf(fp, "%d\n", &n); // read number of statements
+void input()
+{
+    printf("Enter the no of terms: ");
+    scanf("%d",&n);
+    printf("Enter the terms:\n");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%s",arr[i].op);
+        scanf("%s",arr[i].arg1);
+        scanf("%s",arr[i].arg2);
+        scanf("%s",arr[i].res);
+        arr[i].flag=0;
+    }
+}
 
-    long val[26] = {0};
-    int isConst[26] = {0};
+void constant() {
+    int a, b, res;
+    char temp_res[5];
 
-    char line[50];
-    for (int i = 0; i < n; i++) {
-        if (!fgets(line, sizeof(line), fp)) break;
-        line[strcspn(line, "\n")] = 0; // remove newline
-
-        char lhs = line[0];
-        char *rhs = &line[2];
-
-        if (isdigit(rhs[0])) { // constant assignment
-            val[lhs - 'a'] = atol(rhs);
-            isConst[lhs - 'a'] = 1;
-            printf("%c = %ld\n", lhs, val[lhs - 'a']);
-        } else { // expression like b=a+3 or c=z*a
-            char a = rhs[0];
-            char op = rhs[1];
-            char b = rhs[2];
-
-            long rightVal = -1;
-            if (isdigit(b)) rightVal = atol(&rhs[2]);
-            else if (isConst[b - 'a']) rightVal = val[b - 'a'];
-
-            if (isConst[a - 'a'] && rightVal != -1) { // can evaluate
-                long result = 0;
-                switch(op){
-                    case '+': result = val[a - 'a'] + rightVal; break;
-                    case '-': result = val[a - 'a'] - rightVal; break;
-                    case '*': result = val[a - 'a'] * rightVal; break;
-                    case '/': result = val[a - 'a'] / rightVal; break;
-                }
-                val[lhs - 'a'] = result;
-                isConst[lhs - 'a'] = 1;
-                printf("%c = %ld\n", lhs, result);
-            } else { // cannot fully evaluate
-                printf("%c = %c %c ", lhs, a, op);
-                if (rightVal != -1) printf("%ld\n", rightVal);
-                else printf("%c\n", b);
+    for (int i = 0; i < n; i++) 
+    {
+        if (arr[i].op[0] == '=') 
+        {
+            strcpy(temp_res, arr[i].arg1);
+            arr[i].flag = 1;
+            change(i, temp_res);
+        }
+        else if (isdigit(arr[i].arg1[0]) && isdigit(arr[i].arg2[0])) 
+        {
+            a = atoi(arr[i].arg1);
+            b = atoi(arr[i].arg2);
+            switch (arr[i].op[0]) 
+            {
+                case '+': res = a + b; break;
+                case '-': res = a - b; break;
+                case '*': res = a * b; break;
+                case '/': res = a / b; break;
+                default: continue;
             }
+            sprintf(temp_res, "%d", res);
+            arr[i].flag = 1;
+            change(i, temp_res);
         }
     }
+}
 
-    fclose(fp);
+
+void output()
+{
+    int allFolded = 1;
+    for (int i = 0; i < n; i++) {
+        if (!arr[i].flag) {
+            allFolded = 0;
+            printf("%s %s %s %s\n", arr[i].op, arr[i].arg1, arr[i].arg2, arr[i].res);
+        }
+    }
+    if (allFolded)
+        printf("All expressions were constant folded.\n");
+
+}
+
+int main()
+{
+    input();
+    constant();
+    output();
     return 0;
 }
