@@ -32,8 +32,8 @@ void processFile()
                 consonants++;
         }
 
-        // count words (when space/newline/tab follows a letter)
-        if ((ch == ' ' || ch == '\n' || ch == '\t') && isalpha(prev))
+        // count words (when space/newline/tab follows a letter) athupole line inte end il special characters onnum kodukkaruthe
+        if ((ch == ' ' || ch == '\n' || ch == '\t' || ch == '.') && isalpha(prev))
             words++;
 
         prev = ch;
